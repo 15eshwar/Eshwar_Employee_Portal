@@ -1,0 +1,87 @@
+<nav class="navbar">
+  <h1>Explore Your leave Data</h1>
+  <ul class="nav-menu">
+    <li><a (click)="goBack()">⬅️ Back</a></li>
+  </ul>
+</nav>
+
+<div *ngIf="isLoading" class="loader">
+  <div class="spinner"></div>
+  <p>Fetching Data...</p>
+</div>
+
+<div *ngIf="noData && !isLoading" class="no-data-fancy">
+  <svg class="no-data-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="30" stroke="#ff4c4c" fill="none" />
+    <line x1="20" y1="20" x2="44" y2="44" stroke="#ff4c4c" />
+    <line x1="44" y1="20" x2="20" y2="44" stroke="#ff4c4c" />
+  </svg>
+  <h3>Oops! No data found.</h3>
+  <p>Looks like you have no leave Data yet.</p>
+</div>
+
+<div *ngIf="!isLoading && ldata.length > 0" class="inquiry-section">
+  <h2>Leave Data</h2>
+
+  <div class="control-bar">
+    <div class="filter-controls">
+      <label for="filterField">Filter By:</label>
+      <select id="filterField" [(ngModel)]="filterField">
+        <option value="START_DATE">Start Date</option>
+        <option value="END_DATE">End Date</option>
+        <option value="ABSENCE_HOURS">Absence Hours</option>
+        <option value="PRAB_TYPE">Attendance Type</option>
+      </select>
+    </div>
+
+    <div class="filter-control" *ngIf="isFieldVisible('START_DATE')">
+      <label>Start Date:</label>
+      <input type="text" [(ngModel)]="filterText" placeholder="Enter Start Date" />
+    </div>
+
+    <div class="filter-control" *ngIf="isFieldVisible('END_DATE')">
+      <label>End Date:</label>
+      <input type="text" [(ngModel)]="filterText" placeholder="Enter End Date" />
+    </div>
+
+    <div class="filter-control" *ngIf="isFieldVisible('ABSENCE_HOURS')">
+      <label>Absence Hours:</label>
+      <input type="text" [(ngModel)]="filterText" placeholder="Enter Absence Hours" />
+    </div>
+
+    <div class="filter-control" *ngIf="isFieldVisible('PRAB_TYPE')">
+      <label>Attendance Type:</label>
+      <input type="text" [(ngModel)]="filterText" placeholder="Enter Attendance Type" />
+    </div>
+
+    <button (click)="searchFilteredData()" class="search-button" title="Click to search">🔍</button>
+    <button class="refresh-btn" (click)="refreshData()" title="Reset all filters">🔄</button>
+
+    <div class="sort-controls">
+      <label for="sortField">Sort By:</label>
+      <select id="sortField" [(ngModel)]="sortField" (change)="sortData()">
+        <option value="START_DATE">Start Date</option>
+        <option value="END_DATE">End Date</option>
+        <option value="ABSENCE_HOURS">Absence Hours</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card-container">
+    <div class="data-card" *ngFor="let inquiry of ldata">
+      <div class="card-row">🆔<strong>Employee ID:</strong> {{ removeLeadingZeros(inquiry.EMPLOYEE_ID) || '-' }}</div>
+      <div class="card-row">👤<strong>Name:</strong> {{ inquiry.FIRST_NAME || '-' }} {{ inquiry.LAST_NAME || '-' }}</div>
+      <div class="card-row">📝<strong>Attendance Type:</strong> {{ removeLeadingZeros(inquiry.PRAB_TYPE) || '-' }}</div>
+      <div class="card-row">📅<strong>Start Date:</strong> {{ formatDateToDMY(inquiry.START_DATE) || '-' }}</div>
+      <div class="card-row">⏱<strong>End Date:</strong> {{ formatDateToDMY(inquiry.END_DATE) || '-' }}</div>
+      <div class="card-row">🔢<strong>No. of P/A:</strong> {{ inquiry.NO_OF_PRAB || '-' }}</div>
+      <div class="card-row">🕒<strong>Absence Hours:</strong> {{ inquiry.ABSENCE_HOURS || '-' }}</div>
+      <div class="card-row">📆<strong>Payroll Days:</strong> {{ inquiry.PAYROLL_DAYS || '-' }}</div>
+      <div class="card-row">🧮<strong>Payroll Hours:</strong> {{ inquiry.PAYROLL_HOURS || '-' }}</div>
+      <div class="card-row">📊<strong>EMP-Time Quota:</strong> {{ inquiry.NO_OF_ETIMEQ || '-' }}</div>
+      <div class="card-row">📈<strong>Counter Time RQ:</strong> {{ removeLeadingZeros(inquiry.COUNTER_TIMERQ) || '-' }}</div>
+      <div class="card-row">🧾<strong>Absence Quota Type:</strong> {{ inquiry.ABSENCE_QTYPE || '-' }}</div>
+      <div class="card-row">🕓<strong>Quota Deduction Start:</strong> {{ formatDateToDMY(inquiry.START_DATE_QDEDUCT) || '-' }}</div>
+    </div>
+  </div>
+</div>

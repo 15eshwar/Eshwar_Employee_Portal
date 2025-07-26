@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <h1>Welcome to Employee Portal</h1>
+  <ul class="nav-menu">
+    <li><a (click)="goWelcome()">🏠 Home</a></li>
+    <li><a (click)="goAbout()">💡 About</a></li>
+    <li><a (click)="goContact()">📞 Contact</a></li>
+     <li><a (click)="goLogin()">🧑🏻‍💼 Login</a></li>
+  </ul>
+</nav>
+
+<div class="hero-image-container">
+ <div class="hero-content">
+  <img class ="hero-image" src="https://img.freepik.com/free-photo/futuristic-technology-concept_23-2151908097.jpg?semt=ais_items_boosted&w=740">
+    <h1>Welcome !</h1>
+    <h2>Our Dear Employee</h2>
+    <button (click)="goLogin()">Get Started</button>
+    <h5>Better Care, Better Workforce</h5>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <a routerLink="/contact">Contact</a>
+    <a (click)="goAbout()">About</a>
+    <a routerLink="/address">Address</a>
+  </div>
+   <p>© 2025. All rights reserved.</p>
+</footer>
+

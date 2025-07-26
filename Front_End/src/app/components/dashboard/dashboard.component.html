@@ -1,0 +1,42 @@
+<nav  class="navbar">
+  <h1>Dashboard</h1>
+  <ul class="nav-menu">
+    <li><a (click)="goWelcome()">🏠 Home</a></li>
+    <li><a (click)="goAbout()">💡 About</a></li>
+    <li><a (click)="goContact()">📞 Contact</a></li>
+
+    <div class="profile-dropdown" (click)="Dropdown()">
+      <img 
+        src="https://cdn-icons-png.flaticon.com/512/7396/7396247.png" 
+        alt="Profile Icon" 
+        class="profile-icon"
+      />
+      <ul *ngIf="showDropdown" class="dropdown-menu">
+        <li (click)="goProfile()">My Profile</li>
+        <li (click)="goleavedata()" >Leave Data</li>
+        <li (click)="goPayslip()">Pay slip</li>
+        <li (click)="goLogout()">Log Out</li>
+      </ul>
+    </div>
+  </ul>
+</nav>
+
+<div class="main-sections">
+  <a class="container-box" routerLink="/profile">
+    <img class="box-image" src="https://cdn-icons-png.flaticon.com/512/10485/10485137.png">
+    <h2><a (click)="goProfile()">Employee Profile</a></h2>
+    <p>Find your personal details and preferences.</p>
+  </a>
+
+  <a class="container-box" routerLink="/dashboard">
+    <img src="https://cdn-icons-png.flaticon.com/512/10722/10722554.png" alt="Dashboard" class="box-image">
+    <h2><a (click)="goleavedata()" >Leave Data</a></h2>
+    <p>Manage your leaves.</p>
+  </a>
+
+  <a class="container-box" routerLink="/financial-sheet">
+    <img src="https://cdn-icons-png.flaticon.com/512/1571/1571031.png" alt="Financial Sheet" class="box-image">
+    <h2><a (click)="goPayslip()">Pay Slip</a></h2>
+    <p>Download your payslips.</p>
+  </a>
+</div>

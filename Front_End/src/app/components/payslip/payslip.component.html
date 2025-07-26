@@ -1,0 +1,61 @@
+<nav class="navbar">
+  <h1>Explore Your Payslip Details</h1>
+  <ul class="nav-menu">
+    <li><a (click)="goBack()">⬅️ Back</a></li>
+  </ul>
+</nav>
+
+<div *ngIf="isLoading" class="loader">
+  <div class="spinner"></div>
+  <p>Fetching Data...</p>
+</div>
+
+<div *ngIf="noData && !isLoading" class="no-data-fancy">
+  <svg class="no-data-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="30" stroke="#ff4c4c" fill="none"/>
+    <line x1="20" y1="20" x2="44" y2="44" stroke="#ff4c4c"/>
+    <line x1="44" y1="20" x2="20" y2="44" stroke="#ff4c4c"/>
+  </svg>
+  <h3>Oops! No data found.</h3>
+  <p>Looks like you have no payslip Data yet.</p>
+</div>
+
+<div *ngIf="!isLoading && records.length > 0" class="invoice-section">
+  <h2>Payslip</h2>
+  <div class="grid-container">
+    <div class="grid-card" *ngFor="let invoice of records">
+      <div class="card-row">🆔<strong>Employee ID:</strong> {{ removeLeadingZeros(invoice.PERNR) || '-' }}</div>
+      <div class="grid-row"><strong>📄 Pay Scale Type:</strong> {{ invoice.TRFAR || '-' }}</div>
+      <div class="grid-row"><strong>🌍 Pay Scale Area:</strong> {{ invoice.TRFGB || '-' }}</div>
+      <div class="grid-row"><strong>📊 Pay Scale Group:</strong> {{ invoice.TRFGR || '-' }}</div>
+      <div class="grid-row"><strong>🔢 Pay Scale Level:</strong> {{ invoice.TRFST || '-' }}</div>
+      <div class="grid-row"><strong>💰 Basic Salary:</strong> {{ invoice.BSGRD || '-' }}</div>
+      <div class="grid-row"><strong>➗ Divisor:</strong> {{ invoice.DIVGV || '-' }}</div>
+      <div class="grid-row"><strong>📈 Annual Salary:</strong> {{ invoice.ANSAL || '-' }}</div>
+      <div class="grid-row"><strong>💱 Currency:</strong> {{ invoice.WAERS || '-' }}</div>
+      <div class="button-group">
+        <button class="download-btn" (click)="downloadPDF(invoice.PERNR)">⬇️ Download PDF</button>
+        <button class="mail-btn" (click)="promptEmailAndSend(invoice.PERNR)">↗️ Share via Email</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="email-popup" *ngIf="showEmailPrompt">
+  <div class="email-popup-content">
+    <h3>Enter Recipient Email</h3>
+    <div *ngIf="isEmailSending" class="spinner-overlay">
+      <div class="spinner"></div>
+    </div>
+    <input type="email" [(ngModel)]="enteredEmail" placeholder="Enter email" class="email-input" [disabled]="isEmailSending"/>
+    <p class="error-message" *ngIf="emailErrorMessage">{{ emailErrorMessage }}</p>
+    <div class="email-popup-actions">
+      <button (click)="cancelEmailPrompt()" class="cancel-btn" [disabled]="isEmailSending">Cancel</button>
+      <button (click)="confirmEmailPrompt()" class="confirm-btn" [disabled]="isEmailSending">Send</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showStatus" [ngClass]="emailStatusType === 'success' ? 'status-success' : 'status-error'" class="status-message">
+  {{ emailStatusMessage }}
+</div>

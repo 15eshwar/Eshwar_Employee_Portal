@@ -1,0 +1,61 @@
+<nav class="navbar">
+  <h1>Welcome to Login Page</h1>
+  <ul class="nav-menu">
+    <li><a (click)="goWelcome()">🏠 Home</a></li>
+    <li><a (click)="goAbout()">💡 About</a></li>
+    <li><a (click)="goContact()">📞 Contact</a></li>
+    <li><a (click)="goBack()">⬅️ Back</a></li>
+  </ul>
+</nav>
+
+<div class="main-container">
+  <div class="left-container">
+    <div class="left-image">
+      <img src="https://cdn.imgbin.com/6/7/10/message-icon-communication-icon-notification-icon-Fce6GKVj.jpg" alt="Kaar Logo" />
+    </div>
+    <h3 class="left-heading">EMPLOYEE MESSAGE</h3>
+    <div class="left-content">
+      <p>Your satisfaction is our priority. Access dedicated tools and services built for your business growth</p>
+    </div>
+  </div>
+
+  <div class="login-container">
+    <form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
+      <h2 class="form-title">Employee Login</h2>
+
+      <div class="form-group">
+        <label for="employeeID">Employee ID</label>
+        <input
+          type="String"
+          id="employeeID"
+          [(ngModel)]="employeeID"
+          name="employeeID"
+          required
+          #employeeIDField="ngModel"
+          [class.invalid]="employeeIDField.invalid && employeeIDField.touched" />
+        <small *ngIf="employeeIDField.errors?.['required'] && employeeIDField.touched" class="error-text">
+          ID is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          #passwordField="ngModel"
+          [class.invalid]="passwordField.invalid && passwordField.touched" />
+        <small *ngIf="passwordField.invalid && passwordField.touched" class="error-text">
+          Password is required
+        </small>
+      </div>
+
+      <button type="submit">Login</button>
+      <p class="error" *ngIf="showError">Invalid Employee ID or Password</p>
+      <h6>Don't have account? <a>Sign up</a></h6>
+    </form>
+  </div>
+</div>

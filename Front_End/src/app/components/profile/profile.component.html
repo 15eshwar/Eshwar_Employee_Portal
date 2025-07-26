@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <h1>Explore Your Profile</h1>
+  <ul class="nav-menu">
+    <li><a (click)="goBack()">⬅️ Back</a></li>
+  </ul>
+</nav>
+
+<div class="profile-row">
+  <div class="banner-img">
+    <img src="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg?cs=srgb&dl=pexels-fauxels-3182773.jpg&fm=jpg" alt="Banner">
+  </div>
+
+  <div class="customer-card">
+    <div class="customer-header">
+      <img src="https://media.istockphoto.com/id/1397977173/vector/know-your-customer.jpg?s=612x612&w=0&k=20&c=Sd3lGgf9NIJVXxRCEVOkXGr9mcwCBu1LqqGDnKorRrg=" alt="Customer Image">
+      <div class="customer-name">
+        <h2>{{fullName}}</h2>
+        <span>ID: {{ employee.EMPLOYEE_ID }}</span>
+      </div>
+    </div>
+    <div class="customer-details">
+      <div class="detail"><strong>DOB:</strong> {{ dob }}</div>
+      <div class="detail"><strong>Gender:</strong> {{ gendercheck }}</div>
+      <div class="detail"><strong>Natonality:</strong> {{ natioCheck }}</div>
+      <div class="detail"><strong>Communication language:</strong> {{employee.COM_LANG }}</div>
+      <div class="detail"><strong>Street:</strong> {{ employee.STREET}}</div>
+      <div class="detail"><strong>City:</strong> {{ employee.CITY }}</div>
+      <div class="detail"><strong>Country:</strong> {{ employee.COUNTRY }}</div>
+      <div class="detail"><strong>Employee Group:</strong> {{employee.EMPLOYEE_GRP }}</div>
+      <div class="detail"><strong>Employee Sub Group:</strong> {{employee.EMPLOYEE_SUBGRP }}</div>
+    </div>
+  </div>
+</div>
+
+
