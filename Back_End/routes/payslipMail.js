@@ -46,8 +46,6 @@ router.post('/send-payslip-mail', async (req, res) => {
       }
     );
 
-    console.log('SAP Response:', response.data);
-
     // Parse the XML
     xml2js.parseString(response.data, { explicitArray: false, ignoreAttrs: true }, async (err, result) => {
       if (err) {
@@ -82,7 +80,6 @@ router.post('/send-payslip-mail', async (req, res) => {
         };
 
         await transporter.sendMail(mailOptions);
-
         // Delete file after sending
         fs.unlinkSync(filePath);
 
@@ -97,6 +94,4 @@ router.post('/send-payslip-mail', async (req, res) => {
     res.status(500).json({ error: 'Failed to call SAP service' });
   }
 });
-
-
 module.exports = router;

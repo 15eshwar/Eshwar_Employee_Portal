@@ -5,7 +5,6 @@ const xml2js = require('xml2js');
 require('dotenv').config();
 
 router.post('/login', (req, res) => {
-  console.log('Received from frontend:', req.body.employeeID, req.body.password);
   const { employeeID, password } = req.body;
      if (!employeeID || !password) {
     return res.status(400).json({ message: 'Employee ID and password are required.' });
